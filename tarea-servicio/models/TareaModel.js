@@ -1,6 +1,5 @@
 const {DataTypes, Model} = require('sequelize');
 const db = require('../../compartido/dbconfig');
-const Usuario = require('../../usuario-servicio/models/UsuarioModel');
 class Tarea extends Model {
 }
 
@@ -13,22 +12,12 @@ Tarea.init({
     Titulo: DataTypes.STRING,
     Descripcion: DataTypes.STRING,
     estado: DataTypes.STRING,
-    UsuarioId: {
-        type: DataTypes.INTEGER,
-        references: {
-            model: Usuario,
-            key: 'Id',
-        },
-        onDelete: 'CASCADE'
-    }
+    UsuarioId: DataTypes.INTEGER,
+        
 },{
     sequelize: db,
     tableName: 'Tareas',
-    timeStamps: false
+    timestamps: false
 });
 
-Tarea.belongsTo(Usuario, {
-    foreignKey: 'UsuarioId',
-    as: 'usuario'
-});
 module.exports = Tarea;

@@ -31,8 +31,7 @@ class UsuarioController {
             const {correo, password} = req.body;
             const usuario = await Usuario.autenticacion(correo, password);
             if(!usuario) return res.status(401).json({error: 'Credenciales incorrectas'});
-            
-            const token = jwt.sign({id: usuario.id, correo: usuario.correo}, JWTSECRET, {expiresIn: '2h'});
+            const token = jwt.sign({id: usuario.Id, correo: usuario.Correo}, JWTSECRET, {expiresIn: '2h'});
             return res.status(200).json({message: 'Sesión iniciada', token});
         } catch (error) {
             return res.status(500).json({error: 'Error al iniciar sesión'});

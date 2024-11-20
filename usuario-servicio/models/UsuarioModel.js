@@ -1,7 +1,6 @@
 const {DataTypes, Model} = require('sequelize');
 const db = require('../../compartido/dbconfig');
 const bcrypt = require('bcryptjs');
-const Tarea = require('../../tarea-servicio/models/TareaModel');
 class Usuario extends Model {
     /**
      * Metodo para encontrar un usuario por su correo
@@ -60,8 +59,8 @@ Usuario.beforeCreate(async (usuario)=>{
     await usuario.hashPassword();
 });
 
-Usuario.hasMany(Tarea, {
+/* Usuario.hasMany(Tarea, {
     foreignKey: 'UsuarioId',
     as: 'tareas'
-});
+}); */
 module.exports = Usuario;

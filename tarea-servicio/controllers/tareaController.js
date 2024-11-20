@@ -1,4 +1,3 @@
-const { RetryAgent } = require('undici-types');
 const Tarea = require('../models/TareaModel');
 
 class TareaController {
@@ -9,13 +8,13 @@ class TareaController {
      * @returns tarea creada o error
      */
     static async crear(req, res){
-        const {titulo, descripcion, usuario} = req.body;
+        const {titulo, descripcion, usuarioId, estado} = req.body;
         try {
             const tarea = await Tarea.create({
                 Titulo: titulo,
                 Descripcion: descripcion,
-                UsuarioId: usuario,
-                estado: 'pendiente'
+                UsuarioId: usuarioId,
+                estado: estado
             });
             return res.status(200).json({message: 'Tarea creada con exito', tarea});
         } catch (error) {
@@ -71,7 +70,7 @@ class TareaController {
         const {id} = req.params;
         try {
             const tareas = await Tarea.findAll({where: {UsuarioId: id}});
-            return res.status(200).json({tareas});
+            return res.status(200).json(tareas);
         } catch (error) {
             return res.status(500).json({error: 'Error al obtener tareas'});
         }
